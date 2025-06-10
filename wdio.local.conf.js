@@ -2,7 +2,7 @@ import allure from 'allure-commandline'
 
 const debug = process.env.DEBUG
 const oneMinute = 60 * 1000
-const oneHour = 60 * 60 * 1000
+// const oneHour = 60 * 60 * 1000
 
 const execArgv = ['--loader', 'esm-module-alias/loader']
 
@@ -17,6 +17,8 @@ export const config = {
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
   runner: 'local',
+  after: undefined,
+
   //
   // ==================
   // Specify Test Files
@@ -33,12 +35,17 @@ export const config = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ['./test/specs/**/*.e2e.js'],
+  // specs: ['./test/specs/**/*.e2e.js'],
+  specs: ['./test/features/*.feature'],
+  cucumberOpts: {
+    require: ['./test/step-definitions/*.js'],
+    format: ['pretty'],
+    tags: ['@wip'],
+    timeout: 60000
+  },
   // Patterns to exclude.
-  exclude: [
-    // 'path/to/excluded/files'
-  ],
-  // injectGlobals: false,
+  exclude: ['path/to/excluded/files'],
+  injectGlobals: false,
   //
   // ============
   // Capabilities
@@ -63,13 +70,28 @@ export const config = {
   //
 
   capabilities: debug
-    ? [{ browserName: 'chrome' }]
+    ? [
+        {
+          maxInstances: 1,
+          browserName: 'chrome',
+          'goog:chromeOptions': {
+            args: [
+              '--headless',
+              '--no-sandbox',
+              '--disable-infobars',
+              '--disable-gpu',
+              '--window-size=1920,1080'
+            ]
+          }
+        }
+      ]
     : [
         {
           maxInstances: 1,
           browserName: 'chrome',
           'goog:chromeOptions': {
             args: [
+              '--headless',
               '--no-sandbox',
               '--disable-infobars',
               '--disable-gpu',
@@ -106,24 +128,25 @@ export const config = {
   //
   // If you only want to run your tests until a specific amount of tests have failed use
   // bail (default is 0 - don't bail, run all tests).
-  bail: 1,
+  // bail: 1,
   //
   // Set a base URL in order to shorten url command calls. If your `url` parameter starts
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: 'http://localhost:3000',
+  // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
-  waitforInterval: 200,
+  // waitforTimeout: 10000,
+  // waitforInterval: 200,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
   connectionRetryTimeout: 120000,
+
   //
   // Default request retries count
-  connectionRetryCount: 3,
+  connectionRetryCount: 0,
   //
   // Test runner services
   // Services take over a specific job you don't want to take care of. They enhance
@@ -137,7 +160,7 @@ export const config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: 'mocha',
+  framework: 'cucumber',
   //
   // The number of times to retry the entire specfile when it fails as a whole
   // specFileRetries: 1,
@@ -152,22 +175,34 @@ export const config = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
 
+  // reporters: [
+  //   'spec',
+  //   [
+  //     'allure',
+  //     {
+  //       outputDir: 'allure-results'
+  //     }
+  //   ]
+  // ],
+
   reporters: [
-    'spec',
     [
       'allure',
       {
-        outputDir: 'allure-results'
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+        useCucumberStepReporter: true
       }
     ]
   ],
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  mochaOpts: {
-    ui: 'bdd',
-    timeout: debug ? oneHour : 60000
-  },
+  // mochaOpts: {
+  //   ui: 'bdd',
+  //   timeout: debug ? oneHour : 60000
+  // },
   //
   // =====
   // Hooks
@@ -256,19 +291,19 @@ export const config = {
    * @param {boolean} result.passed    true if test has passed, otherwise false
    * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
    */
-  afterTest: async function (
-    test,
-    context,
-    { error, result, duration, passed, retries }
-  ) {
-    await browser.takeScreenshot()
+  // afterTest: async function (
+  //   test,
+  //   context,
+  //   { error, result, duration, passed, retries }
+  // ) {
+  //   await browser.takeScreenshot()
 
-    if (error) {
-      browser.executeScript(
-        'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}'
-      )
-    }
-  },
+  //   if (error) {
+  //     browser.executeScript(
+  //       'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed","reason": "At least 1 assertion failed"}}'
+  //     )
+  //   }
+  // },
 
   /**
    * Hook that gets executed after the suite has ended
@@ -306,6 +341,25 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
+  // onComplete: function (exitCode, config, capabilities, results) {
+  //   const reportError = new Error('Could not generate Allure report')
+  //   const generation = allure(['generate', 'allure-results', '--clean'])
+
+  //   return new Promise((resolve, reject) => {
+  //     const generationTimeout = setTimeout(() => reject(reportError), oneMinute)
+
+  //     generation.on('exit', function (exitCode) {
+  //       clearTimeout(generationTimeout)
+
+  //       if (exitCode !== 0) {
+  //         return reject(reportError)
+  //       }
+
+  //       allure(['open'])
+  //       resolve()
+  //     })
+  //   })
+  // }
   onComplete: function (exitCode, config, capabilities, results) {
     const reportError = new Error('Could not generate Allure report')
     const generation = allure(['generate', 'allure-results', '--clean'])
