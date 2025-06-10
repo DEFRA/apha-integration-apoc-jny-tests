@@ -21,19 +21,23 @@ export const config = {
   // ====================
   // WebdriverIO supports running e2e tests as well as unit and component tests.
   runner: 'local',
+  headless: true,
   //
   // Set a base URL in order to shorten url command calls. If your `url` parameter starts
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: `https://apha-integration-apoc-jny-tests.${process.env.ENVIRONMENT}.cdp-int.defra.cloud`,
+  // baseUrl: `https://apha-integration-apoc-jny-tests.${process.env.ENVIRONMENT}.cdp-int.defra.cloud`,
+
+  // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
 
   // Connection to remote chromedriver
-  hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
-  port: process.env.CHROMEDRIVER_PORT || 4444,
+  // hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
+  // port: process.env.CHROMEDRIVER_PORT || 4444,
 
   // Tests to run
-  specs: ['./test/specs/**/*.js'],
+  specs: ['./test/features/*.feature'],
+
   // Tests to exclude
   exclude: [],
   maxInstances: 1,
@@ -74,8 +78,13 @@ export const config = {
   waitforInterval: 200,
   connectionRetryTimeout: 6000,
   connectionRetryCount: 3,
-  framework: 'mocha',
-
+  framework: 'cucumber',
+  cucumberOpts: {
+    require: ['./test/step-definitions/*.js'],
+    format: ['pretty'],
+    tags: ['@wip'],
+    timeout: 60000
+  },
   reporters: [
     [
       // Spec reporter provides rolling output to the logger so you can see it in-progress
