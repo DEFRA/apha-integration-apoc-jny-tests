@@ -2,7 +2,7 @@ import { Given, When, Then } from '@cucumber/cucumber'
 import { expect } from 'chai'
 import { workschedulesData } from '../data/workschedules.data'
 import { compareResponseWithExpectedData } from '../utils/utils'
-// import { transformRepositoryWorkschedule } from '../data/workschedules.repo'
+import WorkSchedules from '../responseprocessor/workschedules'
 
 import axios from 'axios'
 
@@ -20,7 +20,10 @@ When('user send the request', async () => {
 
 Then('endpoint must return the workschedules list', async () => {
   const resonseData = await response
+  const workschedulesResponseData = new WorkSchedules(resonseData.data)
+
   expect(resonseData.status).to.equal(200)
+  expect(workschedulesResponseData.message).to.equal('success')
 
   const responseDataForKeys = resonseData.data.workschedules[0]
   const expectedDataKeys = Object.keys(workschedulesData[0])
