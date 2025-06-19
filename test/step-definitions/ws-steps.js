@@ -6,12 +6,41 @@ import WorkSchedules from '../responseprocessor/workschedules'
 
 import axios from 'axios'
 
-let URL = ''
 let response = ''
+let URL = ''
+
+const token = async (clientId, clientSecret, tokenUrl) => {
+  const clientCredentials = `${clientId}:${clientSecret}`
+  const encodedCredentials = Buffer.from(clientCredentials).toString('base64')
+
+  const headers = {
+    Authorization: `Basic ${encodedCredentials}`,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+
+  const payload = new URLSearchParams({
+    grant_type: 'client_credentials',
+    client_id: clientId,
+    client_secret: clientSecret
+  })
+
+  try {
+    const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
+      headers
+    })
+    return response.data.access_token
+  } catch (error) {
+    throw new Error(
+      `Error fetching token: ${error.response ? error.response.data : error.message}`
+    )
+  }
+}
 
 Given('the user workschedules endpoint', () => {
+  // URL = endpoint('workschedules') //will remove this line later.
   URL =
-    'https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules'
+    'https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules' +
+    token
 })
 
 When('user send the request', async () => {
