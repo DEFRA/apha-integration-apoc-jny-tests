@@ -24,6 +24,8 @@ Feature: (AIL-245) HOLDINGS endpoint tests
     Examples:
       | cphNumber   | statuscode |
       | 02/055/0224 |        404 |
+      | 0223232/0552323/02242323 |        404 |
+      
 
   Scenario Outline: 03 Verify that the appropriate error message is returned when a user supplies an invalid CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
@@ -36,3 +38,4 @@ Feature: (AIL-245) HOLDINGS endpoint tests
       |  02/055ss/0224 | "parishId" with value "055ss" fails to match the required pattern: /^\\d+$/                                                                                                                                                          |
       |  02/055/0224ww | "holdingsId" with value "0224ww" fails to match the required pattern: /^\\d+$/                                                                                                                                                       |
       | 02w/055w/0224w | "countyId" with value "02w" fails to match the required pattern: /^\\d+$/. "parishId" with value "055w" fails to match the required pattern: /^\\d+$/. "holdingsId" with value "0224w" fails to match the required pattern: /^\\d+$/ |
+      
