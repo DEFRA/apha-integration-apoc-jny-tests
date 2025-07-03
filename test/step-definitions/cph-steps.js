@@ -86,14 +86,16 @@ Then(
     expect(actualResponse).to.have.property(holdingsendpointKeys.MSG)
     expect(actualResponse).to.have.property(holdingsendpointKeys.CODE)
     expect(actualResponse).to.have.property(holdingsendpointKeys.ERRORS)
-    expect(actualResponse.message).to.equal('Holding not found')
-    expect(actualResponse.code).to.equal('NOT_FOUND')
+    expect(actualResponse.message).to.equal(
+      holdingsendpointKeys.HOLDING_NOT_FOUND
+    )
+    expect(actualResponse.code).to.equal(holdingsendpointKeys.NOT_FOUND)
     expect(actualResponse.errors.length).to.equal(0)
   }
 )
 
 Then(
-  /^endpoint must return unsuccessful response (.+)$/,
+  /^endpoint must return unsuccessful error response (.+)$/,
   async (expectedMessage) => {
     const actualResponse = response.data
     expect(response.status).to.equal(responseCodes.badRequest)
@@ -106,7 +108,7 @@ Then(
     expect(errorMeesage).to.have.property(holdingsendpointKeys.COUNTYID)
     expect(errorMeesage).to.have.property(holdingsendpointKeys.PARISHID)
     expect(errorMeesage).to.have.property(holdingsendpointKeys.HOLDINGSID)
-    expect(errorMeesage.code).to.equal('VALIDATION_ERROR')
+    expect(errorMeesage.code).to.equal(holdingsendpointKeys.VALIDATION_ERROR)
     const cleanedMessage = expectedMessage.replace(/^"|"$/g, '')
     expect(errorMeesage.message).to.equal(cleanedMessage)
     expect(actualResponse.errors.length).to.equal(1)

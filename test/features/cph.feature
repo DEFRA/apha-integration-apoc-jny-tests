@@ -1,7 +1,7 @@
 @wip
-Feature: cph
+Feature: (AIL-245) HOLDINGS endpoint tests
   
-  Scenario Outline: 01 Successfully match a valid CPH number
+  Scenario Outline: 01 Verify that a valid CPH number returns a successful response
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
     Then the API should return the details for the specified CPH number "<status>"
@@ -16,7 +16,7 @@ Feature: cph
       | 02/082/0093 | PERMANENT |
       | 02/083/0024 | PERMANENT |
  
-  Scenario Outline: 02 CPH number match unsuccessful
+  Scenario Outline: 02 Verify that, Unsuccessful response (404) should be returned for a non-existent CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
     Then endpoint return unsuccessful response code "<statuscode>"
@@ -26,10 +26,10 @@ Feature: cph
       | 02/055/0224 |        404 |
 
 
-  Scenario Outline: 03 Verify the error message, when user supplier invalid CPH number
+  Scenario Outline: 03 Verify that the appropriate error message is returned when a user supplies an invalid CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
-    Then endpoint must return unsuccessful response "<message>"
+    Then endpoint must return unsuccessful error response "<message>"
 
     Examples:
       | cphNumber      | message                                                                                                                                                                                                                              |

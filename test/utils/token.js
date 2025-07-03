@@ -44,7 +44,10 @@ export const holdingsendpointKeys = {
   ERRORS: 'errors',
   TYPE: 'type',
   ID: 'id',
-  CPHTYPE: 'cphType'
+  CPHTYPE: 'cphType',
+  HOLDING_NOT_FOUND: 'Holding not found',
+  NOT_FOUND: 'NOT_FOUND',
+  VALIDATION_ERROR: 'VALIDATION_ERROR'
 }
 
 export const responseCodes = {
