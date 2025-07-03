@@ -1,4 +1,4 @@
-@wip
+@wip1
 Feature: workschedules
 
   Scenario: Get all workschedules by get workschedules endpoint1

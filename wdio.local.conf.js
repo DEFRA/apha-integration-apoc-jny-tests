@@ -39,12 +39,12 @@ export const config = {
   specs: ['./test/features/*.feature'],
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
-    format: ['pretty'],
+    format: ['pretty', 'progress', 'summary'],
     tags: ['@wip'],
     timeout: 60000
   },
   // Patterns to exclude.
-  exclude: ['path/to/excluded/files'],
+  // exclude: ['path/to/excluded/files'],
   injectGlobals: false,
   //
   // ============
