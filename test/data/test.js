@@ -9,7 +9,6 @@
 //     "CreatedDate": "2025-06-23T14:18:42.794000+00:00"
 // }
 
-
 // {
 //     "ARN": "arn:aws:secretsmanager:eu-west-2:332499610595:secret:cdp/services/apha-integration-bridge-ZeWNXB",
 //     "Name": "cdp/services/apha-integration-bridge",

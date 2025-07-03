@@ -16,7 +16,7 @@ export const token = async (clientId, clientSecret) => {
     client_id: clientId,
     client_secret: clientSecret
   })
-  console.log('payload', payload)
+
   try {
     const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
       headers

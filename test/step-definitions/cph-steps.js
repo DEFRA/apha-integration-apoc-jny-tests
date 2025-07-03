@@ -1,7 +1,7 @@
 import { Cph } from '../responseprocessor/cph'
 import { Given, When, Then } from '@cucumber/cucumber'
 import {
-  token,
+  // token,
   strProcessor,
   holdingsendpointKeys,
   responseCodes
@@ -13,20 +13,20 @@ const expectedCphTypes = ['permanent', 'temporary', 'emergency']
 const expectedType = 'holdings'
 const baseUrl = 'https://apha-integration-bridge.dev.cdp-int.defra.cloud'
 
-const clintId = '5okrvdfifbgh0la867o1610gj2'
-const secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
+// const clintId = '5okrvdfifbgh0la867o1610gj2'
+// const secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
 
 //  response = await axios.get(endpoint, {
 //   headers: {
 //     Authorization: `Bearer ${tokenGen}`
 //   }
 // })
-let tokenGen = ''
+// let tokenGen = ''
 let response = ''
 let cleanStr = ''
-Given(/^the auth token$/, async () => {
-  tokenGen = await token(clintId, secretId)
-})
+// Given(/^the auth token$/, async () => {
+//   tokenGen = await token(clintId, secretId)
+// })
 
 Given(
   /^the user submits a CPH request with CPH number (.+)$/,
