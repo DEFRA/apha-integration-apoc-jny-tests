@@ -1,6 +1,6 @@
 @wip
 Feature: (AIL-245) HOLDINGS endpoint tests
-  
+
   Scenario Outline: 01 Verify that a valid CPH number returns a successful response
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
@@ -15,7 +15,7 @@ Feature: (AIL-245) HOLDINGS endpoint tests
       | 02/081/0034 | PERMANENT |
       | 02/082/0093 | PERMANENT |
       | 02/083/0024 | PERMANENT |
- 
+
   Scenario Outline: 02 Verify that, Unsuccessful response (404) should be returned for a non-existent CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
@@ -24,7 +24,6 @@ Feature: (AIL-245) HOLDINGS endpoint tests
     Examples:
       | cphNumber   | statuscode |
       | 02/055/0224 |        404 |
-
 
   Scenario Outline: 03 Verify that the appropriate error message is returned when a user supplies an invalid CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
