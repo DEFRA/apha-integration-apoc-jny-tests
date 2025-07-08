@@ -24,8 +24,7 @@ Feature: (AIL-245) HOLDINGS endpoint tests
     Examples:
       | cphNumber   | statuscode |
       | 02/055/0224 |        404 |
-      | 0223232/0552323/02242323 |        404 |
-      
+     
 
   Scenario Outline: 03 Verify that the appropriate error message is returned when a user supplies an invalid CPH number
     Given the user submits a CPH request with CPH number "<cphNumber>"
@@ -34,8 +33,11 @@ Feature: (AIL-245) HOLDINGS endpoint tests
 
     Examples:
       | cphNumber      | message                                                                                                                                                                                                                              |
-      |  02ww/055/0224 | "countyId" with value "02ww" fails to match the required pattern: /^\\d+$/                                                                                                                                                           |
-      |  02/055ss/0224 | "parishId" with value "055ss" fails to match the required pattern: /^\\d+$/                                                                                                                                                          |
-      |  02/055/0224ww | "holdingsId" with value "0224ww" fails to match the required pattern: /^\\d+$/                                                                                                                                                       |
-      | 02w/055w/0224w | "countyId" with value "02w" fails to match the required pattern: /^\\d+$/. "parishId" with value "055w" fails to match the required pattern: /^\\d+$/. "holdingsId" with value "0224w" fails to match the required pattern: /^\\d+$/ |
-      
+      |  02ww/055/2422 |  "countyId" length must be 2 characters long. "countyId" with value "02ww" fails to match the required pattern: /^\d+$/                                                                                                                                                           |
+      |  2w/055/2422 |  "countyId" with value "2w" fails to match the required pattern: /^\d+$/                                                                                                                                                           |
+      |  02/055ss/0224 | "parishId" length must be 3 characters long. "parishId" with value "055ss" fails to match the required pattern: /^\d+$/                                                                                                                                                          |
+      |  02/05s/0224 | "parishId" with value "05s" fails to match the required pattern: /^\d+$/                                                                                                                                                          |
+      |  02/055/022w | "holdingId" with value "022w" fails to match the required pattern: /^\\d+$/                                                                                                                                                       |
+      |  02/055/022ws | "holdingId" length must be 4 characters long. "holdingId" with value "022ws" fails to match the required pattern: /^\\d+$/                                                                                                                                                       |
+      | 2w/05w/022w | "countyId" with value "2w" fails to match the required pattern: /^\\d+$/. "parishId" with value "05w" fails to match the required pattern: /^\\d+$/. "holdingId" with value "022w" fails to match the required pattern: /^\\d+$/ |
+      | w/w/w | "countyId" length must be 2 characters long. "countyId" with value "w" fails to match the required pattern: /^\\d+$/. "parishId" length must be 3 characters long. "parishId" with value "w" fails to match the required pattern: /^\\d+$/. "holdingId" length must be 4 characters long. "holdingId" with value "w" fails to match the required pattern: /^\\d+$/ |

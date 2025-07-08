@@ -28,37 +28,33 @@ export const token = async (clientId, clientSecret) => {
     )
   }
 }
-
+// this function helps to remove extra spaces of the data coming through feature file
 export const strProcessor = function (expectedCphNumber) {
   const encodedStr = expectedCphNumber
   const decodedStr = decodeURIComponent(encodedStr) // "12/345/6789"
   return decodedStr.replace(/^"|"$/g, '') // removes starting & ending quotes
 }
 
+// Below are the holdings expected response keys
 export const holdingsendpointKeys = {
   CODE: 'code',
   MSG: 'message',
   COUNTYID: 'countyId',
   PARISHID: 'parishId',
-  HOLDINGSID: 'holdingsId',
+  HOLDINGSID: 'holdingId',
   ERRORS: 'errors',
   TYPE: 'type',
   ID: 'id',
   CPHTYPE: 'cphType',
   HOLDING_NOT_FOUND: 'Holding not found',
   NOT_FOUND: 'NOT_FOUND',
-  VALIDATION_ERROR: 'VALIDATION_ERROR'
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
+  INVALID_PARAMETERS: 'Invalid request parameters',
+  BAD_REQUEST: 'BAD_REQUEST'
 }
-
+// These are different API response codes
 export const responseCodes = {
   ok: 200,
   badRequest: 400,
   notFound: 404
 }
-
-// console.log(
-//   token(
-//     '5okrvdfifbgh0la867o1610gj2',
-//     '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
-//   )
-// )

@@ -53,7 +53,7 @@ Then(
   async function (expectedCphNumber) {
     const status = strProcessor(expectedCphNumber)
     expect(response.status).to.equal(responseCodes.ok)
-
+    // Verifying the expected keys present from the holdings successful response
     const resData = response.data.data
     expect(resData).to.have.property(holdingsendpointKeys.TYPE)
     expect(resData).to.have.property(holdingsendpointKeys.ID)
@@ -83,6 +83,7 @@ Then(
     expect(response.status.toString()).to.equal(
       statusCode.replace(/['"]+/g, '')
     )
+    // Verifying the error response has expected keys
     expect(actualResponse).to.have.property(holdingsendpointKeys.MSG)
     expect(actualResponse).to.have.property(holdingsendpointKeys.CODE)
     expect(actualResponse).to.have.property(holdingsendpointKeys.ERRORS)
@@ -102,6 +103,12 @@ Then(
     expect(actualResponse).to.have.property(holdingsendpointKeys.MSG)
     expect(actualResponse).to.have.property(holdingsendpointKeys.CODE)
     expect(actualResponse).to.have.property(holdingsendpointKeys.ERRORS)
+    expect(actualResponse.message).to.equal(
+      holdingsendpointKeys.INVALID_PARAMETERS
+    )
+    expect(holdingsendpointKeys.BAD_REQUEST).to.equal(
+      holdingsendpointKeys.BAD_REQUEST
+    )
     const errorMeesage = actualResponse.errors[0]
     expect(errorMeesage).to.have.property(holdingsendpointKeys.CODE)
     expect(errorMeesage).to.have.property(holdingsendpointKeys.MSG)
@@ -112,9 +119,10 @@ Then(
     const cleanedMessage = expectedMessage.replace(/^"|"$/g, '')
     expect(errorMeesage.message).to.equal(cleanedMessage)
     expect(actualResponse.errors.length).to.equal(1)
+    expect(errorMeesage.code).to.equal('VALIDATION_ERROR')
     const cpharray = cleanStr.split('/')
     expect(errorMeesage.countyId).to.equal(cpharray[0])
     expect(errorMeesage.parishId).to.equal(cpharray[1])
-    expect(errorMeesage.holdingsId).to.equal(cpharray[2])
+    expect(errorMeesage.holdingId).to.equal(cpharray[2])
   }
 )
