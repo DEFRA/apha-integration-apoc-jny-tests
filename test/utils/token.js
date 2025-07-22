@@ -16,16 +16,17 @@ export const token = async (clientId, clientSecret) => {
     client_id: clientId,
     client_secret: clientSecret
   })
-
   try {
     const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
       headers
     })
     return response.data.access_token
   } catch (error) {
-    throw new Error(
-      `Error fetching token: ${error.response ? error.response.data : error.message}`
-    )
+    if (error.response) {
+      // The server responded with a status outside the 2xx range
+      // expect(error.response.status).to.equal(403)
+      // expect(error.response.data.error).to.equal('invalid_client')
+    }
   }
 }
 // this function helps to remove extra spaces of the data coming through feature file
@@ -37,6 +38,11 @@ export const strProcessor = function (expectedCphNumber) {
 
 // Below are the holdings expected response keys
 export const holdingsendpointKeys = {
+  STATUSCODE: 'statusCode',
+  ERROR: 'error',
+  UNAUTHORISED: 'Unauthorized',
+  UNAUTH_MESSAGE: 'Access Denied',
+
   CODE: 'code',
   MSG: 'message',
   COUNTYID: 'countyId',

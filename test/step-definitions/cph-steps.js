@@ -1,7 +1,7 @@
 import { Cph } from '../responseprocessor/cph'
 import { Given, When, Then } from '@cucumber/cucumber'
 import {
-  // token,
+  token,
   strProcessor,
   holdingsendpointKeys,
   responseCodes
@@ -11,22 +11,60 @@ import { expect } from 'chai'
 
 const expectedCphTypes = ['permanent', 'temporary', 'emergency']
 const expectedType = 'holdings'
-const baseUrl = 'https://apha-integration-bridge.dev.cdp-int.defra.cloud'
+// const baseUrl = 'https://apha-integration-bridge.dev.cdp-int.defra.cloud'
+const baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
 
-// const clintId = '5okrvdfifbgh0la867o1610gj2'
-// const secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
+const clintId = '5okrvdfifbgh0la867o1610gj2'
+const secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
 
-//  response = await axios.get(endpoint, {
-//   headers: {
-//     Authorization: `Bearer ${tokenGen}`
-//   }
-// })
-// let tokenGen = ''
+const clintId1 = '5okrvdfifbgh0la867o1610gj22'
+const secretId1 = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n2'
+
+let tokenGen = ''
 let response = ''
 let cleanStr = ''
-// Given(/^the auth token$/, async () => {
-//   tokenGen = await token(clintId, secretId)
-// })
+Given(/^the auth token$/, async () => {
+  tokenGen = await token(clintId, secretId)
+})
+
+Given(
+  /^the user submits a CPH request with invalid token (.+)$/,
+  async function (cphNumber) {
+    cleanStr = strProcessor(cphNumber)
+
+    tokenGen = await token(clintId1, secretId1)
+    const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
+    try {
+      response = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${tokenGen}`
+        }
+      })
+    } catch (error) {
+      response = error.response
+    }
+  }
+)
+
+Given(
+  /^the user submits a CPH request with valid token but tampered (.+)$/,
+  async function (cphNumber) {
+    cleanStr = strProcessor(cphNumber)
+
+    tokenGen = await token(clintId, secretId)
+    tokenGen = tokenGen + 'a'
+    const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
+    try {
+      response = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${tokenGen}`
+        }
+      })
+    } catch (error) {
+      response = error.response
+    }
+  }
+)
 
 Given(
   /^the user submits a CPH request with CPH number (.+)$/,
@@ -35,7 +73,11 @@ Given(
 
     const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
     try {
-      response = await axios.get(endpoint)
+      response = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${tokenGen}`
+        }
+      })
     } catch (error) {
       response = error.response
     }
@@ -75,7 +117,44 @@ Then(
     expect(cphResponseData.getCphType().toUpperCase()).to.equal(status)
   }
 )
+// Then(
+//   /^endpoint return unauthorised response code (.+)$/,
+//   async (statusCode) => {
+//     const actualResponse = response.data
+//     expect(response.status.toString()).to.equal(
+//       statusCode.replace(/['"]+/g, '')
+//     )
+//     // Verifying the error response has expected keys
+//     expect(actualResponse).to.have.property(holdingsendpointKeys.STATUSCODE)
+//     expect(actualResponse).to.have.property(holdingsendpointKeys.ERROR)
+//     expect(actualResponse).to.have.property(holdingsendpointKeys.MSG)
+//     expect(actualResponse.message).to.equal(holdingsendpointKeys.UNAUTH_MESSAGE)
+//     expect(actualResponse.statusCode.toString()).to.equal(
+//       statusCode.replace(/['"]+/g, '')
+//     )
+//     expect(actualResponse.error).to.equal(holdingsendpointKeys.UNAUTHORISED)
+//   }
+// )
 
+Then(
+  /^endpoint return unauthorised response code (.+)$/,
+  async (statusCode) => {
+    const actualResponse = response.data
+
+    expect(response.status.toString()).to.equal(
+      statusCode.replace(/['"]+/g, '')
+    )
+    // Verifying the error response has expected keys
+    if (statusCode === '401') {
+      expect(actualResponse.message).to.equal(holdingsendpointKeys.UNAUTHORISED)
+    }
+    if (statusCode === '403') {
+      expect(actualResponse.message).to.equal(
+        holdingsendpointKeys.UNAUTH_MESSAGE
+      )
+    }
+  }
+)
 Then(
   /^endpoint return unsuccessful response code (.+)$/,
   async (statusCode) => {
