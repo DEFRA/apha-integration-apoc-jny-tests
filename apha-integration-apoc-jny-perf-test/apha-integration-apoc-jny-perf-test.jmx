@@ -5,8 +5,6 @@
       <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
         <collectionProp name="Arguments.arguments"/>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
@@ -46,7 +44,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
+      <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -83,7 +81,7 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="false">
         <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments">
           <collectionProp name="Arguments.arguments">
             <elementProp name="graphiteMetricsSender" elementType="Argument">
@@ -126,7 +124,7 @@
         <stringProp name="classname">org.apache.jmeter.visualizers.backend.graphite.GraphiteBackendListenerClient</stringProp>
       </BackendListener>
       <hashTree/>
-      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report">
         <boolProp name="ResultCollector.error_logging">false</boolProp>
         <objProp>
           <name>saveConfig</name>
@@ -163,9 +161,9 @@
         <stringProp name="filename"></stringProp>
       </ResultCollector>
       <hashTree/>
-      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="Generate Summary Results" enabled="true"/>
+      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="Generate Summary Results"/>
       <hashTree/>
-      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HoldingsRequestDefaults" enabled="true">
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HoldingsRequestDefaults">
         <stringProp name="HTTPSampler.domain">apha-integration-bridge.api.dev.cdp-int.defra.cloud</stringProp>
         <stringProp name="HTTPSampler.protocol">https</stringProp>
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables">
@@ -176,12 +174,47 @@
       <hashTree/>
       <kg.apc.jmeter.threads.UltimateThreadGroup guiclass="kg.apc.jmeter.threads.UltimateThreadGroupGui" testclass="kg.apc.jmeter.threads.UltimateThreadGroup" testname="jp@gc - Ultimate Thread Group">
         <collectionProp name="ultimatethreadgroupdata">
-          <collectionProp name="-1731957634">
-            <stringProp name="1567">10</stringProp>
-            <stringProp name="0">0</stringProp>
+          <collectionProp name="1310968812">
             <stringProp name="53">5</stringProp>
+            <stringProp name="49">1</stringProp>
+            <stringProp name="49">1</stringProp>
+            <stringProp name="1507423">1000</stringProp>
+            <stringProp name="49">1</stringProp>
+          </collectionProp>
+          <collectionProp name="-1931770919">
             <stringProp name="1567">10</stringProp>
-            <stringProp name="53">5</stringProp>
+            <stringProp name="1567">10</stringProp>
+            <stringProp reference="../../collectionProp/stringProp[3]"/>
+            <stringProp name="1507423">1000</stringProp>
+            <stringProp name="1567">10</stringProp>
+          </collectionProp>
+          <collectionProp name="-1827230791">
+            <stringProp name="1567">10</stringProp>
+            <stringProp name="1598">20</stringProp>
+            <stringProp reference="../../collectionProp/stringProp[3]"/>
+            <stringProp name="1507423">1000</stringProp>
+            <stringProp name="1598">20</stringProp>
+          </collectionProp>
+          <collectionProp name="1143534988">
+            <stringProp reference="../../collectionProp/stringProp"/>
+            <stringProp name="1629">30</stringProp>
+            <stringProp reference="../../collectionProp/stringProp[3]"/>
+            <stringProp name="1507423">1000</stringProp>
+            <stringProp name="1629">30</stringProp>
+          </collectionProp>
+          <collectionProp name="-1827230791">
+            <stringProp reference="../../collectionProp[3]/stringProp"/>
+            <stringProp reference="../../collectionProp[3]/stringProp[2]"/>
+            <stringProp reference="../../collectionProp/stringProp[3]"/>
+            <stringProp reference="../../collectionProp[3]/stringProp[4]"/>
+            <stringProp reference="../../collectionProp[3]/stringProp[5]"/>
+          </collectionProp>
+          <collectionProp name="1143534988">
+            <stringProp reference="../../collectionProp/stringProp"/>
+            <stringProp reference="../../collectionProp[4]/stringProp[2]"/>
+            <stringProp reference="../../collectionProp/stringProp[3]"/>
+            <stringProp reference="../../collectionProp[4]/stringProp[4]"/>
+            <stringProp reference="../../collectionProp[4]/stringProp[5]"/>
           </collectionProp>
         </collectionProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller">
@@ -246,7 +279,7 @@
           <stringProp name="ConstantTimer.delay">500</stringProp>
         </ConstantTimer>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="holdings">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="holdings" enabled="true">
           <stringProp name="HTTPSampler.path">holdings/${CPH}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
