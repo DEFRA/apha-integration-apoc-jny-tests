@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-export const token = async (clientId, clientSecret) => {
-  const tokenUrl =
-    'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
+export const token = async (tokenUrl, clientId, clientSecret) => {
   const clientCredentials = `${clientId}:${clientSecret}`
   const encodedCredentials = Buffer.from(clientCredentials).toString('base64')
 

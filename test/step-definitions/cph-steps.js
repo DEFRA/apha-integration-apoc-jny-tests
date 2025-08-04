@@ -9,22 +9,67 @@ import {
 import axios from 'axios'
 import { expect } from 'chai'
 
+const env = 'dev'
+
 const expectedCphTypes = ['permanent', 'temporary', 'emergency']
 const expectedType = 'holdings'
-// const baseUrl = 'https://apha-integration-bridge.dev.cdp-int.defra.cloud'
-const baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
 
-const clintId = '5okrvdfifbgh0la867o1610gj2'
-const secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
+let baseUrl = ''
+let clintId = ''
+let secretId = ''
+let tokenUrl = ''
+
+if (env === 'dev') {
+  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+  tokenUrl =
+    'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
+
+  clintId = '5okrvdfifbgh0la867o1610gj2'
+  secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
+}
+
+if (env === 'perf') {
+  tokenUrl =
+    'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
+
+  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+
+  clintId = '4h02n8gviq2n8bf3kl60k3t5to'
+  secretId = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
+}
 
 const clintId1 = '5okrvdfifbgh0la867o1610gj22'
 const secretId1 = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n2'
+
+// const perf_clintId1 = '4h02n8gviq2n8bf3kl60k3t5to'
+// const perf_secretId1 = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
+
+if (env === 'test') {
+  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+
+  clintId = '4sfks8pcsc8s7bt6dti6nh4clc'
+  secretId = '17rc1dh65mqcfpue4fqngri19va0orasgkt68c6c05u8h0rhf3ie'
+}
+
+if (env === 'test-ext') {
+  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+
+  clintId = '3bg39mg39v27fd8qqlnuvfcsp0'
+  secretId = 'vdbpuomlv3bg4vn671d277suortfvuiea4972qiuaircparke4o'
+}
+
+if (env === 'prod') {
+  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+
+  clintId = '2h4roit5vp047ie7tgs3ha2nbl'
+  secretId = '5ljfia3htcslrcvfi3pnbqftjqrvofj29ohe1vb3us2dge50k5i'
+}
 
 let tokenGen = ''
 let response = ''
 let cleanStr = ''
 Given(/^the auth token$/, async () => {
-  tokenGen = await token(clintId, secretId)
+  tokenGen = await token(tokenUrl, clintId, secretId)
 })
 
 Given(
@@ -32,7 +77,8 @@ Given(
   async function (cphNumber) {
     cleanStr = strProcessor(cphNumber)
 
-    tokenGen = await token(clintId1, secretId1)
+    tokenGen = await token(tokenUrl, clintId1, secretId1)
+
     const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
     try {
       response = await axios.get(endpoint, {
@@ -51,7 +97,7 @@ Given(
   async function (cphNumber) {
     cleanStr = strProcessor(cphNumber)
 
-    tokenGen = await token(clintId, secretId)
+    tokenGen = await token(tokenUrl, clintId, secretId)
     tokenGen = tokenGen + 'a'
     const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
     try {
