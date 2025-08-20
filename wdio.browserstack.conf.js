@@ -30,14 +30,20 @@ export const config = {
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
   baseUrl: `https://apha-integration-apoc-jny-tests.${process.env.ENVIRONMENT}.cdp-int.defra.cloud`,
-
+  specs: ['./test/features/*.feature'],
+  cucumberOpts: {
+    require: ['./test/step-definitions/*.js'],
+    format: ['pretty', 'progress', 'summary'],
+    tags: ['dev'],
+    timeout: 60000
+  },
   // You will need to provide your own BrowserStack credentials.
   // These should be added as secrets to the test suite.
   user: process.env.BROWSERSTACK_USERNAME,
   key: process.env.BROWSERSTACK_KEY,
 
   // Tests to run
-  specs: ['./test/specs/**/*.js'],
+  // specs: ['./test/specs/**/*.js'],
   // Tests to exclude
   exclude: [],
   maxInstances: 1,
@@ -92,7 +98,7 @@ export const config = {
   connectionRetryTimeout: 6000,
   connectionRetryCount: 3,
 
-  framework: 'mocha',
+  framework: 'cucumber',
 
   reporters: [
     [
