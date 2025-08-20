@@ -21,13 +21,7 @@ export const config = {
   port: process.env.CHROMEDRIVER_PORT || 4444,
 
   // Tests to run
-  specs: ['./test/features/*.feature'],
-  cucumberOpts: {
-    require: ['./test/step-definitions/*.js'],
-    format: ['pretty', 'progress', 'summary'],
-    tags: ['dev'],
-    timeout: 60000
-  },
+  specs: ['./test/specs/**/*.js'],
   // Tests to exclude
   exclude: [],
   maxInstances: 1,
@@ -66,7 +60,7 @@ export const config = {
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
 
-  framework: 'cucumber',
+  framework: 'mocha',
 
   reporters: [
     [
@@ -89,10 +83,10 @@ export const config = {
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  // mochaOpts: {
-  //   ui: 'bdd',
-  //   timeout: oneMinute
-  // },
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: oneMinute
+  },
   //
   // =====
   // Hooks
