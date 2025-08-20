@@ -37,6 +37,12 @@ export const config = {
 
   // Tests to run
   specs: ['./test/features/*.feature'],
+  cucumberOpts: {
+    require: ['./test/step-definitions/*.js'],
+    format: ['pretty', 'progress', 'summary'],
+    tags: ['dev'],
+    timeout: 60000
+  },
 
   // Tests to exclude
   exclude: [],
@@ -49,19 +55,11 @@ export const config = {
         browserName: 'chrome',
         'goog:chromeOptions': {
           args: [
+            '--headless',
             '--no-sandbox',
             '--disable-infobars',
-            '--headless',
             '--disable-gpu',
-            '--window-size=1920,1080',
-            '--enable-features=NetworkService,NetworkServiceInProcess',
-            '--password-store=basic',
-            '--use-mock-keychain',
-            '--dns-prefetch-disable',
-            '--disable-background-networking',
-            '--disable-remote-fonts',
-            '--ignore-certificate-errors',
-            '--disable-dev-shm-usage'
+            '--window-size=1920,1080'
           ]
         }
       }
@@ -79,12 +77,6 @@ export const config = {
   connectionRetryTimeout: 6000,
   connectionRetryCount: 3,
   framework: 'cucumber',
-  cucumberOpts: {
-    require: ['./test/step-definitions/*.js'],
-    format: ['pretty'],
-    tags: ['@wip'],
-    timeout: 60000
-  },
   reporters: [
     [
       // Spec reporter provides rolling output to the logger so you can see it in-progress
