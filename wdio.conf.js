@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 
-const oneMinute = 60 * 1000
+// const oneMinute = 60 * 1000
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
@@ -32,8 +32,8 @@ export const config = {
   // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
 
   // Connection to remote chromedriver
-  // hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
-  // port: process.env.CHROMEDRIVER_PORT || 4444,
+  hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
+  port: process.env.CHROMEDRIVER_PORT || 4444,
 
   // Tests to run
   specs: ['./test/features/*.feature'],
@@ -81,8 +81,8 @@ export const config = {
   framework: 'cucumber',
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
-    format: ['pretty'],
-    tags: ['@wip'],
+    format: ['pretty', 'progress', 'summary'],
+    tags: ['dev'],
     timeout: 60000
   },
   reporters: [
@@ -106,10 +106,10 @@ export const config = {
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  mochaOpts: {
-    ui: 'bdd',
-    timeout: oneMinute
-  },
+  // mochaOpts: {
+  //   ui: 'bdd',
+  //   timeout: oneMinute
+  // },
   //
   // =====
   // Hooks
