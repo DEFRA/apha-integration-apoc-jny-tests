@@ -9,7 +9,7 @@ const execArgv = ['--loader', 'esm-module-alias/loader']
 if (debug) {
   execArgv.push('--inspect')
 }
-const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
+const cucumberTag = process.env.CUCUMBER_TAGS || '@perf'
 
 export const config = {
   //

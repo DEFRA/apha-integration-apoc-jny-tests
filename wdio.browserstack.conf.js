@@ -15,7 +15,7 @@ if (process.env.HTTP_PROXY) {
   global.GLOBAL_AGENT.HTTP_PROXY = process.env.HTTP_PROXY
 }
 
-const oneMinute = 60 * 1000
+// const oneMinute = 60 * 1000
 
 export const config = {
   //
@@ -87,7 +87,7 @@ export const config = {
     ]
   ],
 
-  execArgv: ['--loader', 'esm-module-alias/loader'],
+  // execArgv: ['--loader', 'esm-module-alias/loader'],
 
   logLevel: 'info',
 
@@ -121,10 +121,10 @@ export const config = {
 
   // Options to be passed to Mocha.
   // See the full list at http://mochajs.org/
-  mochaOpts: {
-    ui: 'bdd',
-    timeout: oneMinute
-  },
+  // mochaOpts: {
+  //   ui: 'bdd',
+  //   timeout: oneMinute
+  // },
 
   // Hooks
   afterTest: async function (
