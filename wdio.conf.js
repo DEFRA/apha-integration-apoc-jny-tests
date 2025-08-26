@@ -4,13 +4,13 @@ import fs from 'node:fs'
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
-  const url = new URL(process.env.HTTP_PROXY)
+  // const url = new URL(process.env.HTTP_PROXY)
   chromeProxyConfig = {
-    proxy: {
-      proxyType: 'manual',
-      httpProxy: `${url.host}:${url.port}`,
-      sslProxy: `${url.host}:${url.port}`
-    }
+    // proxy: {
+    //   proxyType: 'manual',
+    //   httpProxy: `${url.host}:${url.port}`,
+    //   sslProxy: `${url.host}:${url.port}`
+    // }
   }
 }
 
@@ -37,7 +37,12 @@ export const config = {
 
   // Tests to run
   specs: ['./test/features/*.feature'],
-
+  cucumberOpts: {
+    require: ['./test/step-definitions/*.js'],
+    format: ['pretty', 'progress', 'summary'],
+    tags: ['dev'],
+    timeout: 60000
+  },
   // Tests to exclude
   exclude: [],
   maxInstances: 1,
@@ -80,12 +85,7 @@ export const config = {
   connectionRetryTimeout: 6000,
   connectionRetryCount: 3,
   framework: 'cucumber',
-  cucumberOpts: {
-    require: ['./test/step-definitions/*.js'],
-    format: ['pretty', 'progress', 'summary'],
-    tags: ['dev'],
-    timeout: 60000
-  },
+
   reporters: [
     [
       // Spec reporter provides rolling output to the logger so you can see it in-progress
