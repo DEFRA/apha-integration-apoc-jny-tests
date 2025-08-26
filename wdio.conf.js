@@ -3,7 +3,7 @@ import fs from 'node:fs'
 // const oneMinute = 60 * 1000
 // const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
 
-const cucumberTag = '@perf'
+const cucumberTag = '@dev'
 
 // console.log('logsssss ', cucumberTag)
 
