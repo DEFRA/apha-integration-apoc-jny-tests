@@ -5,13 +5,13 @@ const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
-  // const url = new URL(process.env.HTTP_PROXY)
+  const url = new URL(process.env.HTTP_PROXY)
   chromeProxyConfig = {
-    // proxy: {
-    //   proxyType: 'manual',
-    //   httpProxy: `${url.host}:${url.port}`,
-    //   sslProxy: `${url.host}:${url.port}`
-    // }
+    proxy: {
+      proxyType: 'manual',
+      httpProxy: `${url.host}:${url.port}`,
+      sslProxy: `${url.host}:${url.port}`
+    }
   }
 }
 
@@ -74,8 +74,8 @@ export const config = {
     }
   ],
 
-  // execArgv: ['--loader', 'esm-module-alias/loader'],
-  execArgv: [''],
+  execArgv: ['--loader', 'esm-module-alias/loader'],
+  // execArgv: [''],
 
   logLevel: 'info',
 
