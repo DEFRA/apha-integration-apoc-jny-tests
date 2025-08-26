@@ -1,4 +1,4 @@
-@dev
+
 Feature: (AIL-245) HOLDINGS endpoint tests
 
   Background:
@@ -12,7 +12,7 @@ Feature: (AIL-245) HOLDINGS endpoint tests
     Examples:
       | cphNumber   | statuscode |
       | 02/055/0224 |        401 |
-
+  @dev
   Scenario Outline: 02 Verify that, Forbidden response (403) should be returned if token is modified or tampered
     Given the user submits a CPH request with valid token but tampered "<cphNumber>"
     When the request is processed by the system
