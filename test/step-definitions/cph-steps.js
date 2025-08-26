@@ -9,7 +9,7 @@ import {
 import axios from 'axios'
 import { expect } from 'chai'
 
-const env = 'dev'
+const env = '@dev'
 
 const expectedCphTypes = ['permanent', 'temporary', 'emergency']
 const expectedType = 'holdings'
@@ -19,7 +19,7 @@ let clintId = ''
 let secretId = ''
 let tokenUrl = ''
 
-if (env === 'dev') {
+if (env === '@dev') {
   baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
   tokenUrl =
     'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
@@ -28,7 +28,7 @@ if (env === 'dev') {
   secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
 }
 
-if (env === 'perf') {
+if (env === '@perf') {
   tokenUrl =
     'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
 
