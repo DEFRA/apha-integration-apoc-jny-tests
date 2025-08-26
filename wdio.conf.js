@@ -37,8 +37,8 @@ export const config = {
   // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
 
   // Connection to remote chromedriver
-  hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
-  port: process.env.CHROMEDRIVER_PORT || 4444,
+  // hostname: process.env.CHROMEDRIVER_URL || '127.0.0.1',
+  // port: process.env.CHROMEDRIVER_PORT || 4444,
 
   // Tests to run
   specs: ['./test/features/*.feature'],
