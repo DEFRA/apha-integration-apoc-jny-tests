@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 // const oneMinute = 60 * 1000
-const cucumberTag = process.env.CUCUMBER_TAGS || 'dev'
+const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
