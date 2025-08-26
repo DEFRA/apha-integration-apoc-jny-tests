@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 
 // const oneMinute = 60 * 1000
+const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
@@ -40,7 +41,7 @@ export const config = {
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
     format: ['pretty', 'progress', 'summary'],
-    tags: ['dev'],
+    tags: [cucumberTag],
     timeout: 60000
   },
   // Tests to exclude
