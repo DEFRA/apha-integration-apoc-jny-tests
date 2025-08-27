@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { expect } from 'chai'
 export const token = async (tokenUrl, clientId, clientSecret) => {
   const clientCredentials = `${clientId}:${clientSecret}`
   const encodedCredentials = Buffer.from(clientCredentials).toString('base64')
@@ -18,6 +18,7 @@ export const token = async (tokenUrl, clientId, clientSecret) => {
     const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
       headers
     })
+    expect(response.status).to.equal(200)
     return response.data.access_token
   } catch (error) {
     if (error.response) {

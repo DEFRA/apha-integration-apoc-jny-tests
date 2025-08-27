@@ -9,7 +9,7 @@ const execArgv = ['--loader', 'esm-module-alias/loader']
 if (debug) {
   execArgv.push('--inspect')
 }
-export const cucumberTag = process.env.CUCUMBER_TAGS || 'dev'
+export const cucumberTag = process.env.CUCUMBER_TAGS || 'perf-test'
 
 export const config = {
   //
@@ -136,7 +136,7 @@ export const config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
+  baseUrl: `https://apha-integration-bridge.api.${cucumberTag}.cdp-int.defra.cloud`,
   //
   // Default timeout for all waitFor* commands.
   // waitforTimeout: 10000,
@@ -351,7 +351,7 @@ export const config = {
       'allure-results',
       '--clean',
       '--name',
-      'APHA-Integration-Test-Results'
+      `APHA-Test-Results-on-environment-${cucumberTag}`
     ])
 
     return new Promise((resolve, reject) => {

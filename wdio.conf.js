@@ -28,7 +28,7 @@ export const config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  // baseUrl: `https://apha-integration-apoc-jny-tests.${process.env.ENVIRONMENT}.cdp-int.defra.cloud`,
+  baseUrl: `https://apha-integration-bridge.api.${cucumberTag}.cdp-int.defra.cloud`,
 
   // baseUrl: `https://apha-integration-apoc-api.dev.cdp-int.defra.cloud/v1/workschedules`,
 

@@ -1,7 +1,7 @@
 import { Cph } from '../responseprocessor/cph'
 import { Given, When, Then } from '@cucumber/cucumber'
-import { cucumberTag } from './../../wdio.conf'
-// import { cucumberTag } from './../../wdio.local.conf'
+import { cucumberTag, config } from './../../wdio.conf'
+// import { cucumberTag, config } from './../../wdio.local.conf'
 import {
   token,
   strProcessor,
@@ -59,7 +59,8 @@ if (env === 'prod') {
   secretId = '5ljfia3htcslrcvfi3pnbqftjqrvofj29ohe1vb3us2dge50k5i'
 }
 
-const baseUrl = `https://apha-integration-bridge.api.${env}.cdp-int.defra.cloud`
+// const baseUrl = `https://apha-integration-bridge.api.${env}.cdp-int.defra.cloud`
+const baseUrl = config.baseUrl
 
 const tokenUrl = `https://apha-integration-bridge-${tokenEnv}.auth.eu-west-2.amazoncognito.com`
 
