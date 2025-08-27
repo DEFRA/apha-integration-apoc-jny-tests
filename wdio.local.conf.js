@@ -9,7 +9,7 @@ const execArgv = ['--loader', 'esm-module-alias/loader']
 if (debug) {
   execArgv.push('--inspect')
 }
-const cucumberTag = process.env.CUCUMBER_TAGS || '@dev'
+export const cucumberTag = process.env.CUCUMBER_TAGS || 'dev'
 
 export const config = {
   //
@@ -42,7 +42,7 @@ export const config = {
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
     format: ['pretty', 'progress', 'summary'],
-    tags: [cucumberTag],
+    tags: ['@' + cucumberTag],
     timeout: 60000
   },
   // Patterns to exclude.

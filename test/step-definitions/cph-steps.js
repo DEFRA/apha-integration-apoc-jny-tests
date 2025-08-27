@@ -1,5 +1,7 @@
 import { Cph } from '../responseprocessor/cph'
 import { Given, When, Then } from '@cucumber/cucumber'
+import { cucumberTag } from './../../wdio.conf'
+// import { cucumberTag } from './../../wdio.local.conf'
 import {
   token,
   strProcessor,
@@ -9,31 +11,24 @@ import {
 import axios from 'axios'
 import { expect } from 'chai'
 
-const env = '@dev'
+const env = cucumberTag
 
 const expectedCphTypes = ['permanent', 'temporary', 'emergency']
 const expectedType = 'holdings'
 
-let baseUrl = ''
 let clintId = ''
 let secretId = ''
-let tokenUrl = ''
+let tokenEnv = ''
 
-if (env === '@dev') {
-  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
-  tokenUrl =
-    'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
+if (env === 'dev') {
+  tokenEnv = 'c63f2'
 
   clintId = '5okrvdfifbgh0la867o1610gj2'
   secretId = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n'
 }
 
-if (env === '@perf') {
-  tokenUrl =
-    'https://apha-integration-bridge-c63f2.auth.eu-west-2.amazoncognito.com'
-
-  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
-
+if (env === 'perf-test') {
+  tokenEnv = '05244'
   clintId = '4h02n8gviq2n8bf3kl60k3t5to'
   secretId = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
 }
@@ -45,25 +40,28 @@ const secretId1 = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n2'
 // const perf_secretId1 = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
 
 if (env === 'test') {
-  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
-
+  tokenEnv = ''
   clintId = '4sfks8pcsc8s7bt6dti6nh4clc'
   secretId = '17rc1dh65mqcfpue4fqngri19va0orasgkt68c6c05u8h0rhf3ie'
 }
 
 if (env === 'test-ext') {
-  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+  tokenEnv = ''
 
   clintId = '3bg39mg39v27fd8qqlnuvfcsp0'
   secretId = 'vdbpuomlv3bg4vn671d277suortfvuiea4972qiuaircparke4o'
 }
 
 if (env === 'prod') {
-  baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
+  // baseUrl = 'https://apha-integration-bridge.api.dev.cdp-int.defra.cloud'
 
   clintId = '2h4roit5vp047ie7tgs3ha2nbl'
   secretId = '5ljfia3htcslrcvfi3pnbqftjqrvofj29ohe1vb3us2dge50k5i'
 }
+
+const baseUrl = `https://apha-integration-bridge.api.${env}.cdp-int.defra.cloud`
+
+const tokenUrl = `https://apha-integration-bridge-${tokenEnv}.auth.eu-west-2.amazoncognito.com`
 
 let tokenGen = ''
 let response = ''
@@ -193,6 +191,7 @@ Then(
     // Verifying the error response has expected keys
     if (statusCode === '401') {
       expect(actualResponse.message).to.equal(holdingsendpointKeys.UNAUTHORISED)
+      expect()
     }
     if (statusCode === '403') {
       expect(actualResponse.message).to.equal(

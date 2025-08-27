@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 // const oneMinute = 60 * 1000
-const cucumberTag = '@' + process.env.CUCUMBER_TAGS
+export const cucumberTag = process.env.CUCUMBER_TAGS
 // || '@dev'
 
 // const cucumberTag = '@dev'
@@ -46,7 +46,7 @@ export const config = {
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
     format: ['pretty', 'progress', 'summary'],
-    tags: [cucumberTag.trim()],
+    tags: ['@' + cucumberTag.trim()],
     timeout: 60000
   },
   // Tests to exclude
