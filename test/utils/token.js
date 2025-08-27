@@ -18,7 +18,7 @@ export const token = async (tokenUrl, clientId, clientSecret) => {
     const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
       headers
     })
-    expect(response.status).to.equal(200)
+    expect(response.status).to.equal(400)
     return response.data.access_token
   } catch (error) {
     if (error.response) {
