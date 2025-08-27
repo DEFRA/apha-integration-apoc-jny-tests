@@ -79,15 +79,15 @@ Given(
     tokenGen = await token(tokenUrl, clintId1, secretId1)
 
     const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
-    try {
-      response = await axios.get(endpoint, {
-        headers: {
-          Authorization: `Bearer ${tokenGen}`
-        }
-      })
-    } catch (error) {
-      response = error.response
-    }
+    // try {
+    response = await axios.get(endpoint, {
+      headers: {
+        Authorization: `Bearer ${tokenGen}`
+      }
+    })
+    // } catch (error) {
+    //   response = error.response
+    // }
   }
 )
 
