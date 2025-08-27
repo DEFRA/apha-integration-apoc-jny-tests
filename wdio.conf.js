@@ -47,7 +47,7 @@ export const config = {
   cucumberOpts: {
     require: ['./test/step-definitions/*.js'],
     format: ['pretty', 'progress', 'summary'],
-    tags: ['@' + cucumberTag.trim()],
+    tags: ['@' + cucumberTag],
     timeout: 60000
   },
   // Tests to exclude
