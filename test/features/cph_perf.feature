@@ -1,4 +1,4 @@
-@perf
+@perf-test
 Feature: (AIL-245) HOLDINGS endpoint tests
 
   Background:
