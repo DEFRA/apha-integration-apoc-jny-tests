@@ -14,9 +14,20 @@ export const token = async (tokenUrl, clientId, clientSecret) => {
     client_id: clientId,
     client_secret: clientSecret
   })
-  // try {
+
+  const proxyUrl = new URL(process.env.HTTP_PROXY)
+
+  const proxyConfig = {
+    proxy: {
+      host: proxyUrl.hostname,
+      port: parseInt(proxyUrl.port),
+      protocol: proxyUrl.protocol.replace(':', '') // remove trailing colon
+    }
+  }
+
   const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
-    headers
+    headers,
+    ...proxyConfig
   })
 
   expect(response.status).to.equal(200)
