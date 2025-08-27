@@ -1,4 +1,4 @@
-@dev
+
 Feature: (AIL-245) HOLDINGS endpoint tests
 
   Background:
@@ -22,6 +22,7 @@ Feature: (AIL-245) HOLDINGS endpoint tests
       | cphNumber   | statuscode |
       | 02/055/0224 |        403 |
 
+  @dev
   Scenario Outline: 03 Verify that a valid CPH number returns a successful response
     Given the user submits a CPH request with CPH number "<cphNumber>"
     When the request is processed by the system
