@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { expect } from 'chai'
+// import { runLocal } from './../../wdio.local.conf'
+
 export const token = async (tokenUrl, clientId, clientSecret) => {
   const clientCredentials = `${clientId}:${clientSecret}`
   const encodedCredentials = Buffer.from(clientCredentials).toString('base64')
@@ -21,14 +23,29 @@ export const token = async (tokenUrl, clientId, clientSecret) => {
     proxy: {
       host: proxyUrl.hostname,
       port: parseInt(proxyUrl.port),
-      protocol: proxyUrl.protocol.replace(':', '') // remove trailing colon
+      protocol: proxyUrl.protocol.replace(':', '')
     }
   }
 
+  // const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
+  //   headers
+  // })
   const response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
     headers,
     ...proxyConfig
   })
+
+  // let response = ''
+  // if (runLocal) {
+  //   response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
+  //     headers
+  //   })
+  // } else {
+  //   response = await axios.post(`${tokenUrl}/oauth2/token`, payload, {
+  //     headers,
+  //     ...proxyConfig
+  //   })
+  // }
 
   expect(response.status).to.equal(200)
   return response.data.access_token

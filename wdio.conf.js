@@ -15,6 +15,8 @@ if (process.env.HTTP_PROXY) {
   }
 }
 
+export const runLocal = false
+
 export const config = {
   //
   // ====================

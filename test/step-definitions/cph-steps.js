@@ -33,8 +33,8 @@ if (env === 'perf-test') {
   secretId = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
 }
 
-const clintId1 = '5okrvdfifbgh0la867o1610gj22'
-const secretId1 = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n2'
+// const clintId1 = '5okrvdfifbgh0la867o1610gj22'
+// const secretId1 = '1cerfiie9ov0d1ic57qc9i9gespudo2fufnetp5buor2gscgmq8n2'
 
 // const perf_clintId1 = '4h02n8gviq2n8bf3kl60k3t5to'
 // const perf_secretId1 = 'nhh2d5fusfcr5bcunove15227s1jr5tim8e95022qhniaqbjecj'
@@ -76,18 +76,17 @@ Given(
   async function (cphNumber) {
     cleanStr = strProcessor(cphNumber)
 
-    tokenGen = await token(tokenUrl, clintId1, secretId1)
-
+    tokenGen = 'sss'
     const endpoint = `${baseUrl}/${expectedType}/${cleanStr}`
-    // try {
-    response = await axios.get(endpoint, {
-      headers: {
-        Authorization: `Bearer ${tokenGen}`
-      }
-    })
-    // } catch (error) {
-    //   response = error.response
-    // }
+    try {
+      response = await axios.get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${tokenGen}`
+        }
+      })
+    } catch (error) {
+      response = error.response
+    }
   }
 )
 
