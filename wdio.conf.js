@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 
 // const oneMinute = 60 * 1000
-export const cucumberTag = process.env.CUCUMBER_TAGS
+export const cucumberTag = process.env
 
 let chromeProxyConfig = {}
 if (process.env.HTTP_PROXY) {
